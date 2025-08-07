@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contato - Davi De Almeida Carreiro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      background-color: #0f172a;
+      color: #fff;
+    }
+
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 28px;
+      background: none;
+      color: white;
+      border: none;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #1e293b;
+      height: 100vh;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+    }
+
+    .sidebar .logo {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      color: #9333ea;
+      cursor: pointer;
+    }
+
+    .sidebar nav a {
+      color: #cbd5e1;
+      text-decoration: none;
+      margin-bottom: 20px;
+      display: block;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    .sidebar nav a.active,
+    .sidebar nav a:hover {
+      color: #9333ea;
+      font-weight: bold;
+    }
+
+    .main {
+      margin-left: 250px;
+      padding: 60px 40px;
+      flex-grow: 1;
+    }
+
+    .page-title {
+      margin-bottom: 40px;
+    }
+
+    .page-title h1 {
+      font-size: 36px;
+      color: #fff;
+    }
+
+    .page-title p {
+      color: #cbd5e1;
+    }
+
+    .contact-form {
+      background-color: #1e293b;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 600px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      background-color: #334155;
+      color: white;
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .contact-form button {
+      width: 100%;
+      padding: 15px;
+      background-color: #9333ea;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .contact-form button:hover {
+      background-color: #7e22ce;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 100px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="menu-toggle" aria-label="Abrir menu">&#9776;</button>
+
+  <div class="container">
+    <div class="sidebar">
+      <div class="logo" onclick="window.location.href='index.html'">D</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="sobre.html">About</a>
+        <a href="skills.html">Skills</a>
+        <a href="work.html">Work</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+    </div>
+
+    <div class="main">
+      <div class="page-title">
+        <h1>Entre em Contato</h1>
+        <p>Fique à vontade para enviar uma mensagem para mim!</p>
+      </div>
+
+      <div class="contact-form">
+        <form action="https://formsubmit.co/SEUEMAIL@gmail.com" method="POST">
+          <input type="text" name="name" placeholder="Seu nome" required>
+          <input type="email" name="email" placeholder="Seu e-mail" required>
+          <textarea name="message" placeholder="Sua mensagem" required></textarea>
+          <button type="submit">Enviar Mensagem</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggle = document.querySelector(".menu-toggle");
+    const sidebar = document.querySelector(".sidebar");
+
+    toggle.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+    });
+
+    const navLinks = document.querySelectorAll(".sidebar nav a");
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+      });
+    });
+  </script>
+</body>
+</html>

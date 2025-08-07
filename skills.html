@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Habilidades - Davi De Almeida Carreiro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d1b47 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(120, 100, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(60, 80, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(180, 120, 255, 0.05) 0%, transparent 50%);
+      z-index: -1;
+    }
+
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 2rem;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border: none;
+      color: #fff;
+      z-index: 1001;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 90px;
+      background: linear-gradient(180deg, #1e1b3a 0%, #2d1b47 100%);
+      backdrop-filter: blur(10px);
+      border-right: 1px solid rgba(99, 102, 241, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 30px;
+      position: fixed;
+      height: 100vh;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar .logo {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      font-size: 28px;
+      font-weight: 700;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .sidebar nav a {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-decoration: none;
+      color: #b8bdf8;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 15px 5px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      color: #fff;
+      background: rgba(99, 102, 241, 0.2);
+      transform: rotate(180deg) translateX(-5px);
+    }
+
+    .sidebar nav a::before {
+      content: '';
+      position: absolute;
+      left: -2px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 0;
+      background: linear-gradient(180deg, #6366f1, #8b5cf6);
+      border-radius: 2px;
+      transition: height 0.3s ease;
+    }
+
+    .sidebar nav a:hover::before,
+    .sidebar nav a.active::before {
+      height: 30px;
+    }
+
+    .main {
+      margin-left: 90px;
+      padding: 60px 40px;
+      flex: 1;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .page-title h1 {
+      font-size: 48px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    .page-title p {
+      color: #9ca3d4;
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .skills-section {
+      margin-bottom: 60px;
+      animation: fadeInUp 1s ease 0.3s both;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -10px;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 2px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .skill-category {
+      background: linear-gradient(135deg, #1e1b3a 0%, #2d1b47 100%);
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .skill-category:hover::before {
+      left: 100%;
+    }
+
+    .skill-category:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .skill-category h3 {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .skill-category .icon {
+      font-size: 24px;
+    }
+
+    .skill-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .skill-name {
+      color: #b8bdf8;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .skill-level {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .skill-percentage {
+      color: #6366f1;
+      font-weight: 600;
+      font-size: 14px;
+      min-width: 35px;
+    }
+
+    .skill-bar {
+      width: 100px;
+      height: 6px;
+      background: rgba(99, 102, 241, 0.2);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      border-radius: 3px;
+      transition: width 1.5s ease;
+      width: 0;
+    }
+
+    .tools-section {
+      animation: fadeInUp 1s ease 0.6s both;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .tool-card {
+      background: linear-gradient(135deg, #1e1b3a 0%, #2d1b47 100%);
+      padding: 25px 15px;
+      border-radius: 15px;
+      text-align: center;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 30px rgba(99, 102, 241, 0.3);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .tool-icon {
+      font-size: 36px;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .tool-name {
+      color: #b8bdf8;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes progressAnimation {
+      from { width: 0; }
+      to { width: var(--progress); }
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        width: 240px;
+        padding: 80px 20px 20px;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .sidebar nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        width: 100%;
+      }
+
+      .sidebar nav a {
+        writing-mode: initial;
+        transform: none;
+        font-size: 18px;
+        padding: 15px 20px;
+        width: 100%;
+        text-align: left;
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 100px 20px 40px;
+      }
+
+      .page-title h1 {
+        font-size: 36px;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .tools-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-title h1 {
+        font-size: 28px;
+      }
+
+      .skill-category {
+        padding: 20px;
+      }
+
+      .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="menu-toggle" aria-label="Abrir menu">&#9776;</button>
+
+  <div class="container">
+    <div class="sidebar">
+      <div class="logo" onclick="window.location.href='index.html'">D</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="sobre.html">About</a>
+        <a href="skills.html" class="active">Skills</a>
+        <a href="work.html">Work</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+
+    <div class="main">
+      <div class="page-title">
+        <h1>Minhas Habilidades</h1>
+        <p>Tecnologias e ferramentas que domino para criar experiências digitais incríveis</p>
+      </div>
+
+      <div class="skills-section">
+        <h2 class="section-title">Competências Técnicas</h2>
+        <div class="skills-grid">
+          <div class="skill-category">
+            <h3><span class="icon">🎨</span> Frontend</h3>
+            <div class="skill-item">
+              <span class="skill-name">HTML5</span>
+              <div class="skill-level">
+                <span class="skill-percentage">90%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="90"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">CSS3</span>
+              <div class="skill-level">
+                <span class="skill-percentage">85%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="85"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">JavaScript</span>
+              <div class="skill-level">
+                <span class="skill-percentage">80%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="80"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">React</span>
+              <div class="skill-level">
+                <span class="skill-percentage">75%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="75"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3><span class="icon">⚙️</span> Backend</h3>
+            <div class="skill-item">
+              <span class="skill-name">Node.js</span>
+              <div class="skill-level">
+                <span class="skill-percentage">70%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="70"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">PHP</span>
+              <div class="skill-level">
+                <span class="skill-percentage">65%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="65"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">MySQL</span>
+              <div class="skill-level">
+                <span class="skill-percentage">75%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="75"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Python</span>
+              <div class="skill-level">
+                <span class="skill-percentage">60%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="60"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3><span class="icon">🛠️</span> Ferramentas</h3>
+            <div class="skill-item">
+              <span class="skill-name">Git/GitHub</span>
+              <div class="skill-level">
+                <span class="skill-percentage">85%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="85"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">VS Code</span>
+              <div class="skill-level">
+                <span class="skill-percentage">90%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="90"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Figma</span>
+              <div class="skill-level">
+                <span class="skill-percentage">70%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="70"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Bootstrap</span>
+              <div class="skill-level">
+                <span class="skill-percentage">80%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="80"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3><span class="icon">💡</span> Soft Skills</h3>
+            <div class="skill-item">
+              <span class="skill-name">Resolução de Problemas</span>
+              <div class="skill-level">
+                <span class="skill-percentage">90%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="90"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Aprendizado Rápido</span>
+              <div class="skill-level">
+                <span class="skill-percentage">95%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="95"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Trabalho em Equipe</span>
+              <div class="skill-level">
+                <span class="skill-percentage">85%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="85"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Criatividade</span>
+              <div class="skill-level">
+                <span class="skill-percentage">88%</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="88"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tools-section">
+        <h2 class="section-title">Ferramentas & Tecnologias</h2>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <span class="tool-icon">🌐</span>
+            <div class="tool-name">HTML5</div>
+          </div>
+          <div class="tool-card">
+            <span class="tool-icon">🎨</span>
+            <div class="tool-name">CSS3</div>
+          </div>
+          <div class="tool-card">
+            <span class="tool-icon">⚡</span>
+            <div class="tool-name">JavaScript</div>
+          </div>
+          <div class="tool-card">
+            <span class="tool-icon">⚛️</span>
+            <div class="tool-name">React</div>
+          </div>
+          <div class="tool-card">
+            <span class="tool-icon">💚</span>
+            <div class="tool-name">Node.js</div>
+          </div>
+          <div class="tool-card">
+            <span class="tool-icon">🐘</span>
+            <div class="tool-name">PHP</div>
+          </div>
+          <div class="tool-card">
+            <span class="tool-icon">🐍</span>
+            <div class="tool-name">Python</div>
+          </div>
+          <div class="tool-card">
+            <span class="tool-icon">🗄️</span>
+            <div class="tool-name">MySQL</div>
+          </div>
+          <div class="tool-card">
+            <span class="tool-icon">🔧</span>
+            <div class="tool-name">Git</div>
+          </div>
+          <div class="tool-card">
+            <span class="tool-icon">📱</span>
+            <div class="tool-name">GitHub</div>
+          </div>
+          <div class="tool-card">
+            <span class="tool-icon">🎯</span>
+            <div class="tool-name">Figma</div>
+          </div>
+          <div class="tool-card">
+            <span class="tool-icon">📝</span>
+            <div class="tool-name">VS Code</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Menu hambúrguer (mobile)
+    const toggle = document.querySelector(".menu-toggle");
+    const sidebar = document.querySelector(".sidebar");
+
+    toggle.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+    });
+
+    // Fechar menu ao clicar em um link
+    const navLinks = document.querySelectorAll(".sidebar nav a");
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+      });
+    });
+
+    // Fechar menu ao clicar fora
+    document.addEventListener("click", (e) => {
+      if (!sidebar.contains(e.target) && !toggle.contains(e.target)) {
+        sidebar.classList.remove("active");
+      }
+    });
+
+    // Animação das barras de progresso
+    function animateProgressBars() {
+      const progressBars = document.querySelectorAll('.skill-progress');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const progressBar = entry.target;
+            const progress = progressBar.getAttribute('data-progress');
+            
+            setTimeout(() => {
+              progressBar.style.width = progress + '%';
+            }, 500);
+            
+            observer.unobserve(progressBar);
+          }
+        });
+      }, {
+        threshold: 0.5
+      });
+      
+      progressBars.forEach(bar => {
+        observer.observe(bar);
+      });
+    }
+
+    // Inicializar animações quando a página carregar
+    document.addEventListener('DOMContentLoaded', () => {
+      animateProgressBars();
+    });
+  </script>
+</body>
+</html>

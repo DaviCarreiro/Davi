@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre - Davi De Almeida Carreiro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d1b47 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(120, 100, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(60, 80, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(180, 120, 255, 0.05) 0%, transparent 50%);
+      z-index: -1;
+    }
+
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 2rem;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border: none;
+      color: #fff;
+      z-index: 1001;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 90px;
+      background: linear-gradient(180deg, #1e1b3a 0%, #2d1b47 100%);
+      backdrop-filter: blur(10px);
+      border-right: 1px solid rgba(99, 102, 241, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 30px;
+      position: fixed;
+      height: 100vh;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar .logo {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      font-size: 28px;
+      font-weight: 700;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .sidebar nav a {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-decoration: none;
+      color: #b8bdf8;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 15px 5px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      color: #fff;
+      background: rgba(99, 102, 241, 0.2);
+      transform: rotate(180deg) translateX(-5px);
+    }
+
+    .sidebar nav a::before {
+      content: '';
+      position: absolute;
+      left: -2px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 0;
+      background: linear-gradient(180deg, #6366f1, #8b5cf6);
+      border-radius: 2px;
+      transition: height 0.3s ease;
+    }
+
+    .sidebar nav a:hover::before,
+    .sidebar nav a.active::before {
+      height: 30px;
+    }
+
+    .main {
+      margin-left: 90px;
+      padding: 60px 40px;
+      flex: 1;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .page-title h1 {
+      font-size: 48px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    .page-title p {
+      color: #9ca3d4;
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 80px;
+      animation: fadeInUp 1s ease 0.3s both;
+    }
+
+    .about-text {
+      padding-right: 20px;
+    }
+
+    .about-text h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .about-text h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 2px;
+    }
+
+    .about-text p {
+      color: #9ca3d4;
+      line-height: 1.8;
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-image img {
+      width: 100%;
+      border-radius: 25px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      border: 3px solid rgba(99, 102, 241, 0.2);
+    }
+
+    .about-image img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 25px 80px rgba(99, 102, 241, 0.2);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 80px;
+      animation: fadeInUp 1s ease 0.6s both;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, #1e1b3a 0%, #2d1b47 100%);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .stat-card:hover::before {
+      left: 100%;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .stat-number {
+      font-size: 36px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    }
+
+    .stat-label {
+      color: #b8bdf8;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .experience-section {
+      margin-bottom: 80px;
+      animation: fadeInUp 1s ease 0.9s both;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -10px;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 2px;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #6366f1, #8b5cf6);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 50px;
+      width: 50%;
+      padding: 0 40px;
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      text-align: right;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+      text-align: left;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      width: 15px;
+      height: 15px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+    }
+
+    .timeline-item:nth-child(odd)::before {
+      right: -7px;
+    }
+
+    .timeline-item:nth-child(even)::before {
+      left: -7px;
+    }
+
+    .timeline-content {
+      background: linear-gradient(135deg, #1e1b3a 0%, #2d1b47 100%);
+      padding: 25px;
+      border-radius: 15px;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .timeline-content:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(99, 102, 241, 0.2);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .timeline-date {
+      color: #6366f1;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .timeline-title {
+      color: #fff;
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .timeline-description {
+      color: #9ca3d4;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        width: 240px;
+        padding: 80px 20px 20px;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .sidebar nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        width: 100%;
+      }
+
+      .sidebar nav a {
+        writing-mode: initial;
+        transform: none;
+        font-size: 18px;
+        padding: 15px 20px;
+        width: 100%;
+        text-align: left;
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 100px 20px 40px;
+      }
+
+      .page-title h1 {
+        font-size: 36px;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .about-text {
+        padding-right: 0;
+        order: 2;
+      }
+
+      .about-image {
+        order: 1;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      .timeline::before {
+        left: 20px;
+      }
+
+      .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        text-align: left;
+        padding-left: 50px;
+        padding-right: 0;
+      }
+
+      .timeline-item::before {
+        left: 13px !important;
+        right: auto !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-title h1 {
+        font-size: 28px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="menu-toggle" aria-label="Abrir menu">&#9776;</button>
+
+  <div class="container">
+    <div class="sidebar">
+      <div class="logo" onclick="window.location.href='index.html'">D</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="sobre.html" class="active">About</a>
+        <a href="skills.html">Skills</a>
+        <a href="work.html">Work</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+
+    <div class="main">
+      <div class="page-title">
+        <h1>Sobre Mim</h1>
+        <p>Conheça mais sobre minha jornada e experiências no desenvolvimento web</p>
+      </div>
+
+      <div class="about-content">
+        <div class="about-text">
+          <h2>Minha História</h2>
+          <p>Olá! Sou Davi De Almeida Carreiro, um desenvolvedor web apaixonado por tecnologia e inovação. Recém-formado em curso técnico, tenho dedicado meu tempo e energia para me aprofundar no mundo do desenvolvimento web.</p>
+          
+          <p>Minha jornada começou com curiosidade sobre como as coisas funcionam na internet. Desde então, tenho me dedicado a aprender e dominar as mais diversas tecnologias, sempre buscando criar soluções elegantes e funcionais.</p>
+          
+          <p>Acredito que a tecnologia tem o poder de transformar vidas e negócios, e é isso que me motiva a continuar aprendendo e evoluindo constantemente como profissional.</p>
+        </div>
+        <div class="about-image">
+          <img src="Davi.jpg" alt="Davi De Almeida Carreiro" />
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">2+</div>
+          <div class="stat-label">Anos de Estudo</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Projetos Desenvolvidos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">8+</div>
+          <div class="stat-label">Tecnologias Dominadas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Dedicação</div>
+        </div>
+      </div>
+
+      <div class="experience-section">
+        <h2 class="section-title">Minha Jornada</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date">2022 - 2024</div>
+              <div class="timeline-title">Curso Técnico em Informática</div>
+              <div class="timeline-description">Formação técnica completa em desenvolvimento web, programação e tecnologias da informação.</div>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date">2023</div>
+              <div class="timeline-title">Primeiros Projetos Web</div>
+              <div class="timeline-description">Desenvolvimento dos primeiros projetos pessoais utilizando HTML, CSS e JavaScript.</div>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date">2024</div>
+              <div class="timeline-title">Especialização em Frontend</div>
+              <div class="timeline-description">Foco no desenvolvimento frontend moderno, estudando frameworks e bibliotecas atuais.</div>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date">2025</div>
+              <div class="timeline-title">Busca por Oportunidades</div>
+              <div class="timeline-description">Atualmente buscando oportunidades para aplicar meus conhecimentos e crescer profissionalmente.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Menu hambúrguer (mobile)
+    const toggle = document.querySelector(".menu-toggle");
+    const sidebar = document.querySelector(".sidebar");
+
+    toggle.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+    });
+
+    // Fechar menu ao clicar em um link
+    const navLinks = document.querySelectorAll(".sidebar nav a");
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+      });
+    });
+
+    // Fechar menu ao clicar fora
+    document.addEventListener("click", (e) => {
+      if (!sidebar.contains(e.target) && !toggle.contains(e.target)) {
+        sidebar.classList.remove("active");
+      }
+    });
+  </script>
+</body>
+</html>
